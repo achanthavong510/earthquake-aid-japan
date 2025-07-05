@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earthquake Aid Japan</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- Navbar -->
+  <nav class="sticky top-0 bg-white shadow-md z-50 py-4 px-6 flex justify-between items-center">
+    <h1 class="text-xl font-bold flex items-center gap-2">🌏 Earthquake Aid Japan</h1>
+    <div class="flex gap-2 items-center">
+      <button class="rounded-full border px-3 py-1 text-sm">EN</button>
+      <button class="rounded-full border px-3 py-1 text-sm">JP</button>
+      <button class="rounded-full border px-3 py-1 text-sm">PH</button>
+      <button class="rounded-full border px-3 py-1 text-sm">KR</button>
+      <button class="rounded-full border px-3 py-1 text-sm">ZH</button>
+      <button class="ml-2 text-xl">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="text-center py-12 px-6 bg-white">
+    <h2 class="text-4xl font-semibold mb-4">Be Ready. Stay Safe. Help Others.</h2>
+    <p class="text-lg text-gray-600 mb-6">Multilingual earthquake resources for anyone living in or visiting Japan.</p>
+    <div class="flex justify-center gap-4">
+      <a href="#latest-earthquakes" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full text-lg transition-transform transform hover:scale-105">Latest Earthquakes</a>
+      <a href="#checklists" class="border border-gray-400 hover:border-gray-600 text-gray-700 px-6 py-3 rounded-full text-lg transition-transform transform hover:scale-105">Emergency Checklists</a>
+    </div>
+  </section>
+
+  <!-- Earthquake Map & Filter Section -->
+  <section id="latest-earthquakes" class="container mx-auto px-4 py-12">
+    <div class="bg-white shadow-md rounded-2xl p-6">
+      <h3 class="text-2xl font-semibold mb-4">🔔 Latest Earthquakes</h3>
+      <!-- Filter Controls -->
+      <div class="mb-4 flex flex-wrap gap-4">
+        <select id="regionFilter" class="border rounded px-4 py-2">
+          <option value="">All Regions</option>
+          <option value="Hokkaido">Hokkaido</option>
+          <option value="Tohoku">Tohoku</option>
+          <option value="Kanto">Kanto</option>
+          <option value="Chubu">Chubu</option>
+          <option value="Kansai">Kansai</option>
+          <option value="Chugoku">Chugoku</option>
+          <option value="Shikoku">Shikoku</option>
+          <option value="Kyushu">Kyushu</option>
+          <option value="Okinawa">Okinawa</option>
+        </select>
+        <select id="magnitudeFilter" class="border rounded px-4 py-2">
+          <option value="">All Magnitudes</option>
+          <option value="3">3+</option>
+          <option value="4">4+</option>
+          <option value="5">5+</option>
+        </select>
+      </div>
+      <div id="quake-map" class="w-full h-64 rounded-md mb-4"></div>
+      <ul id="quake-list" class="space-y-2">
+        <li class="p-4 bg-gray-100 rounded-lg text-gray-500">Loading recent earthquake data...</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-8">
+    Built with ❤️ for residents, expats, and tourists in Japan | <a href="https://github.com/your-repo" class="underline">GitHub</a>
+  </footer>
+
+  <!-- Earthquake Script -->
+  <script>
+    const proxyUrl = 'https://api.allorigins.win/get?url=';
+    const jmaFeedUrl = 'https://www.data.jma.go.jp/developer/xml/feed/eqvol.xml';
+    const map = L.map('quake-map').setView([36.2, 138.2], 5);
+    let allEarthquakes = [];
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const translateRegion = jp => {
+      const map = {
+        '北海道': 'Hokkaido', '東北': 'Tohoku', '関東': 'Kanto', '中部': 'Chubu',
+        '近畿': 'Kansai', '中国': 'Chugoku', '四国': 'Shikoku', '九州': 'Kyushu', '沖縄': 'Okinawa'
+      };
+      return Object.entries(map).find(([jpRegion]) => jp.includes(jpRegion))?.[1] || 'Other';
+    };
+
+    function renderEarthquakes(filtered) {
+      const quakeList = document.getElementById('quake-list');
+      quakeList.innerHTML = '';
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker) map.removeLayer(layer);
+      });
+
+      filtered.forEach(eq => {
+        const { title, link, lat, lon, magnitude, region } = eq;
+        L.marker([lat, lon]).addTo(map).bindPopup(`<strong>${title}</strong><br><a href='${link}' target='_blank'>More Info</a>`);
+        const li = document.createElement('li');
+        li.className = 'p-4 bg-gray-100 rounded-lg hover:bg-red-50 transition';
+        li.innerHTML = `<a href='${link}' target='_blank' class='text-blue-500 underline'>${title}</a><br>Region: ${region} | M${magnitude} | Lat: ${lat.toFixed(2)}, Lon: ${lon.toFixed(2)}`;
+        quakeList.appendChild(li);
+      });
+    }
+
+    function applyFilters() {
+      const region = document.getElementById('regionFilter').value;
+      const magnitude = parseFloat(document.getElementById('magnitudeFilter').value) || 0;
+      const filtered = allEarthquakes.filter(eq =>
+        (!region || eq.region === region) && (!magnitude || parseFloat(eq.magnitude) >= magnitude)
+      );
+      renderEarthquakes(filtered);
+    }
+
+    fetch(`${proxyUrl}${encodeURIComponent(jmaFeedUrl)}`)
+      .then(res => res.json())
+      .then(data => {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+        const items = xmlDoc.getElementsByTagName('item');
+
+        const fetchDetails = async (url, title) => {
+          try {
+            const detailRes = await fetch(`${proxyUrl}${encodeURIComponent(url)}`);
+            const detailData = await detailRes.json();
+            const detailDoc = parser.parseFromString(detailData.contents, 'text/xml');
+            const coordTag = detailDoc.querySelector('jmx\\:Coordinate, jmx_eb\\:Coordinate');
+            let lat = 35.68, lon = 139.69; // fallback: Tokyo
+            if (coordTag) {
+              const [y, x] = coordTag.textContent.split(',');
+              lat = parseFloat(y);
+              lon = parseFloat(x);
+            }
+            const magnitude = (title.match(/M([0-9.]+)/) || [])[1] || '?';
+            const regionJP = title.split(' ')[0];
+            const regionEN = translateRegion(regionJP);
+            allEarthquakes.push({ title, link: url, lat, lon, magnitude, region: regionEN });
+            applyFilters();
+          } catch (e) {
+            console.error('Details error:', e);
+          }
+        };
+
+        for (let i = 0; i < Math.min(items.length, 10); i++) {
+          const title = items[i].getElementsByTagName('title')[0].textContent;
+          const link = items[i].getElementsByTagName('link')[0].textContent;
+          fetchDetails(link, title);
+        }
+      })
+      .catch(err => {
+        document.getElementById('quake-list').innerHTML = '<li class="text-red-500">⚠️ Failed to load data</li>';
+        console.error('Earthquake fetch error:', err);
+      });
+
+    document.getElementById('regionFilter').addEventListener('change', applyFilters);
+    document.getElementById('magnitudeFilter').addEventListener('change', applyFilters);
+  </script>
+</body>
+</html>

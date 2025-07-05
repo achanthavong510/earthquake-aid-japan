@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Tokyo Medical Center",
+    "area": "Tokyo",
+    "open24h": true,
+    "languages": ["Japanese", "English"]
+  },
+  {
+    "name": "Osaka General Hospital",
+    "area": "Osaka",
+    "open24h": false,
+    "languages": ["Japanese", "English", "Chinese"]
+  },
+  {
+    "name": "Nagoya International Clinic",
+    "area": "Nagoya",
+    "open24h": false,
+    "languages": ["Japanese", "English", "Filipino"]
+  },
+  {
+    "name": "Fukuoka Red Cross Hospital",
+    "area": "Fukuoka",
+    "open24h": true,
+    "languages": ["Japanese", "English", "Korean"]
+  },
+  {
+    "name": "Sapporo City Hospital",
+    "area": "Sapporo",
+    "open24h": false,
+    "languages": ["Japanese", "English"]
+  }
+] 

@@ -1,0 +1,37 @@
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #f9fafb;
+}
+
+.shadow, .shadow-sm, .shadow-lg {
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04), 0 1.5px 4px 0 rgba(0,0,0,0.03);
+}
+
+.rounded, .rounded-xl, .rounded-2xl {
+  border-radius: 1rem;
+}
+
+/* Optional: subtle hover for cards */
+.card-hover {
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.card-hover:hover {
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.07);
+  background: #f0f4ff;
+}
+
+button:focus, a:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #2563eb33;
+}
+
+/* Dark mode overrides */
+.dark .bg-white {
+  background-color: #1a202c !important;
+}
+.dark .text-gray-900 {
+  color: #f7f7f7 !important;
+}
+.dark .shadow, .dark .shadow-sm, .dark .shadow-lg {
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18), 0 1.5px 4px 0 rgba(0,0,0,0.12);
+} 

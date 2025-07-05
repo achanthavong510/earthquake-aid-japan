@@ -2,6 +2,8 @@
 
 ## Project Summary & Recent Updates
 
+URL: https://achanthavong510.github.io/earthquake-aid-japan/
+
 This project is a multilingual earthquake aid website for Japan, built with HTML, TailwindCSS, and Leaflet.js. It provides real-time earthquake information, emergency resources, and language support for both English and Japanese users. Below is a summary of the key features and recent improvements:
 
 ### Key Features & Improvements

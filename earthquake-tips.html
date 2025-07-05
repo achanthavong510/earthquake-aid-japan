@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earthquake Tips | Earthquake Aid Japan</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+  <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+    <a href="index.html" class="text-xl font-bold flex items-center gap-2">🌏 Earthquake Aid Japan</a>
+    <a href="index.html" class="text-blue-600 underline text-sm">← Back to Home</a>
+  </nav>
+
+  <main class="flex-1 container mx-auto px-4 py-8 max-w-2xl">
+    <h1 class="text-3xl font-bold mb-6 text-center">Earthquake Safety Tips<br><span class="text-lg font-normal text-gray-500">地震の安全対策</span></h1>
+    <div class="space-y-4">
+      <!-- Before an Earthquake -->
+      <div class="bg-white rounded-xl shadow p-4">
+        <button type="button" class="w-full flex justify-between items-center font-semibold text-lg py-2 focus:outline-none" onclick="toggleSection('before')">
+          <span>📦 Prepare Before <span class="text-sm text-gray-500 ml-2">(事前の備え)</span></span>
+          <svg id="icon-before" class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="section-before" class="hidden px-2 pb-2 text-gray-700">
+          <ul class="list-disc ml-6 space-y-1">
+            <li><b>Prepare an Emergency Kit</b> <span class="text-gray-500">(緊急用持ち出し袋を準備)</span></li>
+            <li>Secure furniture and heavy items <span class="text-gray-500">(家具や重い物を固定)</span></li>
+            <li>Know evacuation routes <span class="text-gray-500">(避難経路を確認)</span></li>
+            <li>Discuss a family emergency plan <span class="text-gray-500">(家族で緊急時の連絡方法を話し合う)</span></li>
+            <li>Keep shoes and flashlight by your bed <span class="text-gray-500">(枕元に靴と懐中電灯を用意)</span></li>
+          </ul>
+        </div>
+      </div>
+      <!-- During an Earthquake -->
+      <div class="bg-white rounded-xl shadow p-4">
+        <button type="button" class="w-full flex justify-between items-center font-semibold text-lg py-2 focus:outline-none" onclick="toggleSection('during')">
+          <span>🛡️ During the Quake <span class="text-sm text-gray-500 ml-2">(地震発生時)</span></span>
+          <svg id="icon-during" class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="section-during" class="hidden px-2 pb-2 text-gray-700">
+          <ul class="list-disc ml-6 space-y-1">
+            <li><b>Drop, Cover, and Hold On</b> <span class="text-gray-500">(身を低くし、頭を守り、動かない)</span></li>
+            <li>Stay away from windows and glass <span class="text-gray-500">(窓やガラスから離れる)</span></li>
+            <li>Protect your head and neck <span class="text-gray-500">(頭と首を守る)</span></li>
+            <li>If outside, move to an open area <span class="text-gray-500">(屋外では広い場所へ)</span></li>
+            <li>If driving, stop safely and stay in the car <span class="text-gray-500">(運転中は安全な場所に停車し車内で待機)</span></li>
+          </ul>
+        </div>
+      </div>
+      <!-- After an Earthquake -->
+      <div class="bg-white rounded-xl shadow p-4">
+        <button type="button" class="w-full flex justify-between items-center font-semibold text-lg py-2 focus:outline-none" onclick="toggleSection('after')">
+          <span>🆘 After the Quake <span class="text-sm text-gray-500 ml-2">(地震後)</span></span>
+          <svg id="icon-after" class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div id="section-after" class="hidden px-2 pb-2 text-gray-700">
+          <ul class="list-disc ml-6 space-y-1">
+            <li><b>Check for injuries and hazards</b> <span class="text-gray-500">(けがや危険箇所を確認)</span></li>
+            <li>Follow official information and updates <span class="text-gray-500">(公式情報を確認)</span></li>
+            <li>Be ready for aftershocks <span class="text-gray-500">(余震に注意)</span></li>
+            <li>Help neighbors if safe <span class="text-gray-500">(安全なら近所の人を助ける)</span></li>
+            <li>Evacuate if necessary <span class="text-gray-500">(必要に応じて避難)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="text-center text-sm text-gray-500 py-8">
+    <a href="index.html" class="underline">Back to Earthquake Aid Japan</a>
+  </footer>
+  <script>
+    function toggleSection(id) {
+      const section = document.getElementById('section-' + id);
+      const icon = document.getElementById('icon-' + id);
+      const isOpen = !section.classList.contains('hidden');
+      // Close all
+      ['before', 'during', 'after'].forEach(s => {
+        document.getElementById('section-' + s).classList.add('hidden');
+        document.getElementById('icon-' + s).style.transform = 'rotate(0deg)';
+      });
+      if (!isOpen) {
+        section.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+  </script>
+</body>
+</html> 

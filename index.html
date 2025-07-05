@@ -22,19 +22,19 @@
     </div>
   </nav>
 
-  <section class="text-center py-12 px-6 bg-white mb-8">
+  <section class="text-center py-4 sm:py-4 md:py-6 lg:py-8 px-2 bg-white mb-4">
     <h2 class="text-4xl font-semibold mb-4" x-text="lang === 'EN' ? 'Be Ready. Stay Safe. Help Others.' : '備えよう。安全を守ろう。他の人を助けよう。'"></h2>
     <p class="text-lg text-gray-600 mb-6" x-text="lang === 'EN' ? 'Multilingual earthquake resources for anyone living in or visiting Japan.' : '日本に住んでいる方や旅行者のための多言語地震情報リソースです。'"></p>
-    <div class="flex justify-center gap-4">
-      <a href="#latest-earthquakes" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full text-lg transition-transform transform hover:scale-105" x-text="lang === 'EN' ? 'Latest Earthquakes' : '最新の地震情報'"></a>
-      <a href="#official-resources" class="border border-gray-400 hover:border-gray-600 text-gray-700 px-6 py-3 rounded-full text-lg transition-transform transform hover:scale-105" x-text="lang === 'EN' ? 'Earthquake Resources' : '地震リソース'"></a>
-      <a href="earthquake-tips.html" class="border border-gray-400 hover:border-gray-600 text-gray-700 px-6 py-3 rounded-full text-lg transition-transform transform hover:scale-105">Earthquake Tips</a>
-      <a href="phrases.html" class="border border-gray-400 hover:border-gray-600 text-gray-700 px-6 py-3 rounded-full text-lg transition-transform transform hover:scale-105">Common Emergency Phrases</a>
+    <div class="flex flex-wrap justify-center gap-2 mx-auto max-w-2xl">
+      <a href="#latest-earthquakes" class="bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto max-w-[160px] text-sm px-3 py-2 rounded-full transition-transform transform hover:scale-105" x-text="lang === 'EN' ? 'Latest Earthquakes' : '最新の地震情報'"></a>
+      <a href="#official-resources" class="border border-gray-400 hover:border-gray-600 text-gray-700 w-full sm:w-auto max-w-[160px] text-sm px-3 py-2 rounded-full transition-transform transform hover:scale-105" x-text="lang === 'EN' ? 'Earthquake Resources' : '地震リソース'"></a>
+      <a href="earthquake-tips.html" class="border border-gray-400 hover:border-gray-600 text-gray-700 w-full sm:w-auto max-w-[160px] text-sm px-3 py-2 rounded-full transition-transform transform hover:scale-105">Earthquake Tips</a>
+      <a href="phrases.html" class="border border-gray-400 hover:border-gray-600 text-gray-700 w-full sm:w-auto max-w-[160px] text-sm px-3 py-2 rounded-full transition-transform transform hover:scale-105">Common Emergency Phrases</a>
     </div>
   </section>
 
-  <section id="latest-earthquakes" class="container mx-auto px-4 py-12 mb-8">
-    <div class="bg-white shadow-md rounded-2xl p-6">
+  <section id="latest-earthquakes" class="container mx-auto px-2 py-4 sm:py-4 md:py-6 lg:py-8 mb-4">
+    <div class="bg-white shadow-md rounded-2xl p-2 sm:p-4">
       <h3 class="text-2xl font-semibold mb-4" x-text="lang === 'EN' ? '🔔 Latest Earthquakes' : '🔔 最新の地震情報'"></h3>
       <div class="mb-4 flex flex-wrap gap-4">
         <select id="regionFilter" class="border rounded px-4 py-2">
@@ -76,19 +76,19 @@
         </div>
       </div>
       <ul id="quake-list" class="space-y-4 transition-all duration-300"></ul>
-      <div class="flex justify-center mt-4">
+      <div class="flex justify-center mt-1">
         <button id="toggle-quake-list" class="px-6 py-2 rounded-full bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-all duration-300">View More Earthquakes</button>
       </div>
     </div>
   </section>
 
   <!-- Official Resources Section -->
-  <section id="official-resources" class="container mx-auto px-4 py-12">
-    <div class="bg-white shadow-md rounded-2xl p-6">
+  <section id="official-resources" class="container mx-auto px-2 py-4 sm:py-4 md:py-6 lg:py-8">
+    <div class="bg-white shadow-md rounded-2xl p-2 sm:p-4">
       <h3 class="text-2xl font-semibold mb-6">Official Resources</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- JMA -->
-        <div class="rounded-xl bg-white shadow p-6 hover:shadow-lg transition flex flex-col justify-between">
+        <div class="rounded-xl bg-white shadow p-2 sm:p-4 hover:shadow-lg transition flex flex-col justify-between">
           <div>
             <div class="font-bold text-lg mb-2">Japan Meteorological Agency (JMA)</div>
             <div class="text-gray-600 mb-4">Provides real-time earthquake warnings, tsunami alerts, and volcanic activity updates. Japan's official source for seismic data.</div>
@@ -96,7 +96,7 @@
           <a href="https://www.jma.go.jp/jma/indexe.html" target="_blank" class="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded-full font-semibold text-sm hover:bg-blue-600 transition">Visit</a>
         </div>
         <!-- NHK World -->
-        <div class="rounded-xl bg-white shadow p-6 hover:shadow-lg transition flex flex-col justify-between">
+        <div class="rounded-xl bg-white shadow p-2 sm:p-4 hover:shadow-lg transition flex flex-col justify-between">
           <div>
             <div class="font-bold text-lg mb-2">NHK World Disaster Info</div>
             <div class="text-gray-600 mb-4">Multilingual updates from Japan's national broadcaster, including emergency instructions, news, and evacuation orders.</div>
@@ -104,7 +104,7 @@
           <a href="https://www3.nhk.or.jp/nhkworld/en/news/tags/5/" target="_blank" class="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded-full font-semibold text-sm hover:bg-blue-600 transition">Visit</a>
         </div>
         <!-- Tokyo Disaster Prevention Portal -->
-        <div class="rounded-xl bg-white shadow p-6 hover:shadow-lg transition flex flex-col justify-between">
+        <div class="rounded-xl bg-white shadow p-2 sm:p-4 hover:shadow-lg transition flex flex-col justify-between">
           <div>
             <div class="font-bold text-lg mb-2">Tokyo Disaster Prevention Portal</div>
             <div class="text-gray-600 mb-4">A hub for Tokyo-specific disaster planning including evacuation routes, shelter maps, and emergency safety guides.</div>
@@ -112,7 +112,7 @@
           <a href="https://www.bousai.metro.tokyo.lg.jp/index.html" target="_blank" class="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded-full font-semibold text-sm hover:bg-blue-600 transition">Visit</a>
         </div>
         <!-- Safety Tips App by JNTO -->
-        <div class="rounded-xl bg-white shadow p-6 hover:shadow-lg transition flex flex-col justify-between">
+        <div class="rounded-xl bg-white shadow p-2 sm:p-4 hover:shadow-lg transition flex flex-col justify-between">
           <div>
             <div class="font-bold text-lg mb-2">Safety Tips App by JNTO</div>
             <div class="text-gray-600 mb-4">Push alerts for earthquakes, tsunamis, and severe weather. Available in multiple languages.</div>
@@ -120,7 +120,7 @@
           <a href="https://www.jnto.go.jp/safety-tips/eng/app.html" target="_blank" class="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded-full font-semibold text-sm hover:bg-blue-600 transition">Visit</a>
         </div>
         <!-- Japan Safe Travel (JST) -->
-        <div class="rounded-xl bg-white shadow p-6 hover:shadow-lg transition flex flex-col justify-between">
+        <div class="rounded-xl bg-white shadow p-2 sm:p-4 hover:shadow-lg transition flex flex-col justify-between">
           <div>
             <div class="font-bold text-lg mb-2">Staying Safe in Japan (JNTO)</div>
             <div class="text-gray-600 mb-4">Official JNTO portal featuring travel safety tips, emergency checklists, earthquake/typhoon/volcano info, embassy contacts, and disaster apps.</div>
@@ -128,7 +128,7 @@
           <a href="https://www.japan.travel/en/plan/emergencies/" target="_blank" class="mt-2 inline-block bg-blue-500 text-white px-4 py-2 rounded-full font-semibold text-sm hover:bg-blue-600 transition">Visit</a>
         </div>
         <!-- Yurekuru Call App -->
-        <div class="rounded-xl bg-white shadow p-6 hover:shadow-lg transition flex flex-col justify-between">
+        <div class="rounded-xl bg-white shadow p-2 sm:p-4 hover:shadow-lg transition flex flex-col justify-between">
           <div>
             <div class="font-bold text-lg mb-2">Yurekuru Call App</div>
             <div class="text-gray-600 mb-4">Earthquake early-warning app that alerts your phone seconds before shaking begins. Highly customizable.</div>
@@ -139,7 +139,7 @@
     </div>
   </section>
 
-  <footer class="text-center text-sm text-gray-500 py-8">
+  <footer class="text-center text-sm text-gray-500 py-4">
     <span x-text="lang === 'EN' ? 'Built with ❤️ for residents, expats, and tourists in Japan' : '日本に住む方、外国人居住者、旅行者のために愛を込めて作成されました'">Built with ❤️</span> |
     <a href="https://github.com/achanthavong510/earthquake-aid-japan" class="underline">GitHub</a>
   </footer>
